@@ -31,9 +31,9 @@ def detect_device(user_agent_string: str) -> str:
     else:
         return "desktop"
 
-# ─────────────────────────────────────────
+
 # HOMEPAGE
-# ─────────────────────────────────────────
+
 @app.get("/", response_class=HTMLResponse)
 def homepage(request: Request):
     urls = get_all_urls()
@@ -135,9 +135,9 @@ def homepage(request: Request):
     </html>
     """)
 
-# ─────────────────────────────────────────
+
 # POST /shorten
-# ─────────────────────────────────────────
+
 @app.post("/shorten")
 def shorten_url(request: Request, url: str = Form(...)):
     if is_rate_limited(request.client.host):
@@ -151,16 +151,15 @@ def shorten_url(request: Request, url: str = Form(...)):
     cache_set(short_code, url)
     return RedirectResponse(url="/", status_code=303)
 
-# ─────────────────────────────────────────
 # GET /health  <- must be before /{short_code}
-# ─────────────────────────────────────────
+
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "Server is running"}
 
-# ─────────────────────────────────────────
+
 # GET /dashboard/{short_code}
-# ─────────────────────────────────────────
+
 @app.get("/dashboard/{short_code}", response_class=HTMLResponse)
 def dashboard(short_code: str, request: Request):
     url = get_url(short_code)
@@ -371,9 +370,9 @@ def dashboard(short_code: str, request: Request):
     </html>
     """)
 
-# ─────────────────────────────────────────
+
 # GET /{short_code} — wildcard, must be last
-# ─────────────────────────────────────────
+
 @app.get("/{short_code}")
 def redirect_url(short_code: str, request: Request):
     original_url = cache_get(short_code)

@@ -2,10 +2,7 @@ from database import get_connection
 
 
 def get_clicks_over_time(url_id: int):
-    """
-    Returns click counts grouped by day for the last 30 days.
-    Used to draw the line chart on the dashboard.
-    """
+   
     conn = get_connection()
 
     rows = conn.execute(
@@ -32,9 +29,7 @@ def get_clicks_over_time(url_id: int):
 
 
 def get_device_breakdown(url_id: int):
-    """
-    Returns how many clicks came from mobile, desktop, tablet.
-    """
+   
     conn = get_connection()
 
     rows = conn.execute(
@@ -53,9 +48,7 @@ def get_device_breakdown(url_id: int):
 
 
 def get_referrer_breakdown(url_id: int):
-    """
-    Returns the top 5 referrers for a URL.
-    """
+   
     conn = get_connection()
 
     rows = conn.execute(
@@ -75,10 +68,7 @@ def get_referrer_breakdown(url_id: int):
 
 
 def get_summary(url_id: int):
-    """
-    Returns total clicks, clicks today, and clicks this week.
-    These are the three stat cards at the top of the dashboard.
-    """
+   
     conn = get_connection()
 
     total = conn.execute(
